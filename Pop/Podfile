@@ -8,3 +8,4 @@ pod “NJKWebViewProgress”,”~>0.2.3”
 pod “pop”,”~>1.0.8”
 pod “TTTAttributedLabel”,”~>1.13.4”
 pod “MBProgressHUD”,”~>0.9.1”
+pod “FXKeychain”,”~>1.5.3”

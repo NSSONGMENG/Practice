@@ -1,5 +1,6 @@
 PODS:
   - FXBlurView (1.6.4)
+  - FXKeychain (1.5.3)
   - iCarousel (1.8.2)
   - JDStatusBarNotification (1.5.3)
   - Masonry (0.6.4)
@@ -17,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - FXBlurView (~> 1.6.4)
+  - FXKeychain (~> 1.5.3)
   - iCarousel (~> 1.8.2)
   - JDStatusBarNotification (~> 1.5.2)
   - Masonry (~> 0.6.3)
@@ -28,6 +30,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  FXKeychain: 2fe54573946ffef634f4e2a2851e6c8f4ea15e76
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   JDStatusBarNotification: 29413865af11c862c17180610b0f46a21118b412
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
