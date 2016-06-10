@@ -1,0 +1,12 @@
+platform :ios,'8.0'
+pod “SDWebImage”,”~> 3.7.2”
+pod “Masonry“,“~>0.6.3”
+pod “FXBlurView”,”~>1.6.4”
+pod “iCarousel”,”~>1.8.2”
+pod “JDStatusBarNotification”,”~>1.5.2”
+pod “NJKWebViewProgress”,”~>0.2.3”
+pod “pop”,”~>1.0.8”
+pod “TTTAttributedLabel”,”~>1.13.4”
+pod “MBProgressHUD”,”~>0.9.1”
+pod “FXKeychain”,”~>1.5.3”
+pod “AFNetworking”,”~>3.1.0”
