@@ -20,6 +20,7 @@ PODS:
   - JDStatusBarNotification (1.5.3)
   - Masonry (0.6.4)
   - MBProgressHUD (0.9.2)
+  - MTStatusBarOverlay (0.9.1)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
     - NJKWebViewProgress/ProgressView (= 0.2.3)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - JDStatusBarNotification (~> 1.5.2)
   - Masonry (~> 0.6.3)
   - MBProgressHUD (~> 0.9.1)
+  - MTStatusBarOverlay (~> 0.9.1)
   - NJKWebViewProgress (~> 0.2.3)
   - pop (~> 1.0.8)
   - SDWebImage (~> 3.7.2)
@@ -52,6 +54,7 @@ SPEC CHECKSUMS:
   JDStatusBarNotification: 29413865af11c862c17180610b0f46a21118b412
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MTStatusBarOverlay: 258a1ee369f4dc4b94107d02cfd7f6b1317c421b
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
