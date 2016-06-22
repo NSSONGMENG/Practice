@@ -195,7 +195,7 @@ static ChatVoiceManager * instance;
 }
 
 -(void)levelTimer:(NSTimer*)timer{
-    //playName不正确会导致得录音失败，监测不到音量
+    //playName不正确或者不存在会导致得录音失败，监测不到音量
     voiceTimeInterval += 0.1;
     //call to refresh meter values刷新平均和峰值功率,此计数是以对数刻度计量的,-160表示完全安静，0表示最大输入值
     [recorder updateMeters];
@@ -210,7 +210,7 @@ static ChatVoiceManager * instance;
 #pragma mark  -------- notification --------
 - (void)distanceChanged:(NSNotification *)notification{
     NSLog(@" notification ");
-    //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗（省电啊）
+    //如果此时手机靠近面部放在耳朵旁，那么声音将通过听筒输出，并将屏幕变暗
     if ([[UIDevice currentDevice] proximityState] == YES){
         NSLog(@"Device is close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
@@ -224,9 +224,10 @@ static ChatVoiceManager * instance;
 #pragma mark  -
 #pragma mark  -------- delegate --------
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-    NSLog(@" did finish recording");
+    NSLog(@" did finish recording __%s__",__func__);
 }
 
+//音频播放完成
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     if (self.voiceDidFinishPlaying) {
