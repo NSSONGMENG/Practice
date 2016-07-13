@@ -1,0 +1,5 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FXBlurView" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/TZImagePickerController" "${PODS_ROOT}/Headers/Public/pop"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/FXBlurView" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/TZImagePickerController" -isystem "${PODS_ROOT}/Headers/Public/pop"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"FXBlurView" -l"Masonry" -l"TZImagePickerController" -l"c++" -l"pop" -framework "Accelerate" -framework "Foundation" -framework "QuartzCore" -framework "UIKit"
+PODS_ROOT = ${SRCROOT}/Pods

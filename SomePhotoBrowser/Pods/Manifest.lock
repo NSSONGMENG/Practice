@@ -1,0 +1,19 @@
+PODS:
+  - FXBlurView (1.6.4)
+  - Masonry (0.6.4)
+  - pop (1.0.9)
+  - TZImagePickerController (1.5.0)
+
+DEPENDENCIES:
+  - FXBlurView (~> 1.6.4)
+  - Masonry (~> 0.6.3)
+  - pop (~> 1.0.8)
+  - TZImagePickerController (~> 1.5.0)
+
+SPEC CHECKSUMS:
+  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
+
+COCOAPODS: 0.39.0
