@@ -11,6 +11,11 @@
 @interface UserModel : NSObject
 
 #pragma mark - property
+@property (nonatomic, strong) NSString  * name;
+@property (nonatomic, assign) NSInteger     age;
+@property (nonatomic, assign) CGFloat       height;
+@property (nonatomic, strong) NSArray   * friends;
+
 
 #pragma mark - api
 - (instancetype)init;

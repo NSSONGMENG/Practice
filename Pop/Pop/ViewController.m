@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "UserModel.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NSArray   * imgArr;
@@ -59,14 +59,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSString * message = [NSString stringWithFormat:@" row : %ld", indexPath.row];
-    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
-    overlay.backgroundView.backgroundColor = [UIColor clearColor];
-    overlay.animation = MTStatusBarOverlayAnimationShrink;
-    overlay.detailViewMode = MTDetailViewModeHistory;
-    [overlay postImmediateFinishMessage:message duration:2.0 animated:YES];
-    overlay.progress = 0.5;
+//    
+//    NSString * message = [NSString stringWithFormat:@" row : %ld", indexPath.row];
+//    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+//    overlay.backgroundView.backgroundColor = [UIColor clearColor];
+//    overlay.animation = MTStatusBarOverlayAnimationShrink;
+//    overlay.detailViewMode = MTDetailViewModeHistory;
+//    [overlay postImmediateFinishMessage:message duration:2.0 animated:YES];
+//    overlay.progress = 0.5;
+    UserModel *user = [UserModel new];
+    NSLog(@"%@",user);
+
 }
 
 - (void)didReceiveMemoryWarning {

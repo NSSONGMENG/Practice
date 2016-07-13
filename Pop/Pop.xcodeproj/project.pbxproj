@@ -13,6 +13,7 @@
 		5F493A1F1D0A700700C0D729 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F493A1D1D0A700700C0D729 /* Main.storyboard */; };
 		5F493A211D0A700700C0D729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F493A201D0A700700C0D729 /* Assets.xcassets */; };
 		5F493A241D0A700700C0D729 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F493A221D0A700700C0D729 /* LaunchScreen.storyboard */; };
+		5F6B76D81D2AC07D00CC1ECF /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B76D71D2AC07D00CC1ECF /* UserModel.m */; };
 		5FB35BB01D183C16003B24B5 /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAC1D183C16003B24B5 /* earth.jpg */; };
 		5FB35BB11D183C16003B24B5 /* water.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAD1D183C16003B24B5 /* water.jpg */; };
 		5FB35BB21D183C16003B24B5 /* moutain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAE1D183C16003B24B5 /* moutain.jpg */; };
@@ -32,6 +33,8 @@
 		5F493A201D0A700700C0D729 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F493A231D0A700700C0D729 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F493A251D0A700700C0D729 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F6B76D61D2AC07D00CC1ECF /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		5F6B76D71D2AC07D00CC1ECF /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		5FB35BAC1D183C16003B24B5 /* earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth.jpg; sourceTree = "<group>"; };
 		5FB35BAD1D183C16003B24B5 /* water.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water.jpg; sourceTree = "<group>"; };
 		5FB35BAE1D183C16003B24B5 /* moutain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moutain.jpg; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				5F493A181D0A700700C0D729 /* AppDelegate.m */,
 				5F493A1A1D0A700700C0D729 /* ViewController.h */,
 				5F493A1B1D0A700700C0D729 /* ViewController.m */,
+				5F6B76D61D2AC07D00CC1ECF /* UserModel.h */,
+				5F6B76D71D2AC07D00CC1ECF /* UserModel.m */,
 				5F493A1D1D0A700700C0D729 /* Main.storyboard */,
 				5F493A201D0A700700C0D729 /* Assets.xcassets */,
 				5F493A221D0A700700C0D729 /* LaunchScreen.storyboard */,
@@ -252,6 +257,7 @@
 			files = (
 				5F493A1C1D0A700700C0D729 /* ViewController.m in Sources */,
 				5F493A191D0A700700C0D729 /* AppDelegate.m in Sources */,
+				5F6B76D81D2AC07D00CC1ECF /* UserModel.m in Sources */,
 				5F493A161D0A700700C0D729 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
