@@ -26,6 +26,8 @@
 		5F256FF11D71DFE600886FFD /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F256FE41D71DFE600886FFD /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		5F256FF21D71DFE600886FFD /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F256FE61D71DFE600886FFD /* View+MASAdditions.m */; };
 		5F256FF31D71DFE600886FFD /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F256FE91D71DFE600886FFD /* ViewController+MASAdditions.m */; };
+		5F256FFE1D71EC0E00886FFD /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F256FFC1D71EC0D00886FFD /* right.png */; };
+		5F256FFF1D71EC0E00886FFD /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F256FFD1D71EC0E00886FFD /* left.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		5F256FE71D71DFE600886FFD /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		5F256FE81D71DFE600886FFD /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		5F256FE91D71DFE600886FFD /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		5F256FFC1D71EC0D00886FFD /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		5F256FFD1D71EC0E00886FFD /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,8 @@
 		5F256FC81D71DF6200886FFD /* images */ = {
 			isa = PBXGroup;
 			children = (
+				5F256FFC1D71EC0D00886FFD /* right.png */,
+				5F256FFD1D71EC0E00886FFD /* left.png */,
 				5F256FC91D71DF6200886FFD /* icon_bubble_left.png */,
 				5F256FCA1D71DF6200886FFD /* icon_bubble_right.png */,
 			);
@@ -225,8 +231,10 @@
 			files = (
 				5F256FC11D71DED500886FFD /* LaunchScreen.storyboard in Resources */,
 				5F256FCB1D71DF6200886FFD /* icon_bubble_left.png in Resources */,
+				5F256FFF1D71EC0E00886FFD /* left.png in Resources */,
 				5F256FBE1D71DED500886FFD /* Assets.xcassets in Resources */,
 				5F256FBC1D71DED500886FFD /* Main.storyboard in Resources */,
+				5F256FFE1D71EC0E00886FFD /* right.png in Resources */,
 				5F256FCC1D71DF6200886FFD /* icon_bubble_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
