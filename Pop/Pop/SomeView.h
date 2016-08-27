@@ -10,8 +10,7 @@
 
 @interface SomeView : UIView
 
-#pragma mark - data property
 
-#pragma mark - api
+@property (nonatomic, copy)NSString * title;
 
 @end

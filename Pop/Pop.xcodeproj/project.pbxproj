@@ -14,10 +14,12 @@
 		5F493A211D0A700700C0D729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F493A201D0A700700C0D729 /* Assets.xcassets */; };
 		5F493A241D0A700700C0D729 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F493A221D0A700700C0D729 /* LaunchScreen.storyboard */; };
 		5F6B76D81D2AC07D00CC1ECF /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F6B76D71D2AC07D00CC1ECF /* UserModel.m */; };
+		5F79FB381D5E173000256A4B /* SomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FB371D5E173000256A4B /* SomeView.m */; };
 		5FB35BB01D183C16003B24B5 /* earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAC1D183C16003B24B5 /* earth.jpg */; };
 		5FB35BB11D183C16003B24B5 /* water.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAD1D183C16003B24B5 /* water.jpg */; };
 		5FB35BB21D183C16003B24B5 /* moutain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAE1D183C16003B24B5 /* moutain.jpg */; };
 		5FB35BB31D183C16003B24B5 /* jobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FB35BAF1D183C16003B24B5 /* jobs.jpg */; };
+		5FBB93331D571383006100A5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FBB93321D571383006100A5 /* TTTAttributedLabel.m */; };
 		E8E68E95FB98623085CE61AA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4E0DE1A197D8E9129DEC9A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -35,11 +37,15 @@
 		5F493A251D0A700700C0D729 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F6B76D61D2AC07D00CC1ECF /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		5F6B76D71D2AC07D00CC1ECF /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		5F79FB361D5E173000256A4B /* SomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeView.h; sourceTree = "<group>"; };
+		5F79FB371D5E173000256A4B /* SomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeView.m; sourceTree = "<group>"; };
 		5FB35BAC1D183C16003B24B5 /* earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = earth.jpg; sourceTree = "<group>"; };
 		5FB35BAD1D183C16003B24B5 /* water.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = water.jpg; sourceTree = "<group>"; };
 		5FB35BAE1D183C16003B24B5 /* moutain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moutain.jpg; sourceTree = "<group>"; };
 		5FB35BAF1D183C16003B24B5 /* jobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = jobs.jpg; sourceTree = "<group>"; };
 		5FB35BB41D18417D003B24B5 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5FBB93311D571383006100A5 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		5FBB93321D571383006100A5 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		7A4E0DE1A197D8E9129DEC9A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD5118CE0E3622FDD4FB31C6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,10 +106,13 @@
 				5F493A1B1D0A700700C0D729 /* ViewController.m */,
 				5F6B76D61D2AC07D00CC1ECF /* UserModel.h */,
 				5F6B76D71D2AC07D00CC1ECF /* UserModel.m */,
+				5F79FB361D5E173000256A4B /* SomeView.h */,
+				5F79FB371D5E173000256A4B /* SomeView.m */,
 				5F493A1D1D0A700700C0D729 /* Main.storyboard */,
 				5F493A201D0A700700C0D729 /* Assets.xcassets */,
 				5F493A221D0A700700C0D729 /* LaunchScreen.storyboard */,
 				5F493A251D0A700700C0D729 /* Info.plist */,
+				5FBB932B1D57000E006100A5 /* tools */,
 				5F493A141D0A700700C0D729 /* Supporting Files */,
 			);
 			path = Pop;
@@ -128,6 +137,23 @@
 				5FB35BAF1D183C16003B24B5 /* jobs.jpg */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		5FBB932B1D57000E006100A5 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				5FBB93301D571349006100A5 /* TTTAttributedLabel */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
+		5FBB93301D571349006100A5 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				5FBB93311D571383006100A5 /* TTTAttributedLabel.h */,
+				5FBB93321D571383006100A5 /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +283,10 @@
 			files = (
 				5F493A1C1D0A700700C0D729 /* ViewController.m in Sources */,
 				5F493A191D0A700700C0D729 /* AppDelegate.m in Sources */,
+				5F79FB381D5E173000256A4B /* SomeView.m in Sources */,
 				5F6B76D81D2AC07D00CC1ECF /* UserModel.m in Sources */,
 				5F493A161D0A700700C0D729 /* main.m in Sources */,
+				5FBB93331D571383006100A5 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -128,6 +128,11 @@ IB_DESIGNABLE
 ///--------------------------------------------
 
 /**
+ 默认为NO，如果设置为YES，长按手势将弹出复制提示，代理方法将失效
+ */
+@property (nonatomic, assign) BOOL  showSelectionMenu;
+
+/**
  @deprecated Use `enabledTextCheckingTypes` property instead.
  */
 @property (nonatomic, assign) NSTextCheckingTypes dataDetectorTypes DEPRECATED_ATTRIBUTE;

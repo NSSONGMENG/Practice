@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SomeImage;
 
 @interface ImageBrowserCell : UICollectionViewCell
+
+@property (nonatomic, strong) SomeImage * image;
+@property (nonatomic, copy) void(^callBackTapImageAction)(SomeImage *image);
+
 
 @end

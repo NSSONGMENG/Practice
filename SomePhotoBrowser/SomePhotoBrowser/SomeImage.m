@@ -31,8 +31,8 @@
 - (instancetype)initWithImage:(UIImage *)image detail:(NSString *)detail{
     self = [super init];
     if (self) {
-        
-        self.detail = detail;
+        _image = image;
+        _detail = detail;
     }
     return self;
 }

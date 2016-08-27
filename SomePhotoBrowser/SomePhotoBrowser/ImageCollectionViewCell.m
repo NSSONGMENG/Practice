@@ -7,6 +7,7 @@
 //
 
 #import "ImageCollectionViewCell.h"
+#import "SomeImage.h"
 
 @interface ImageCollectionViewCell ()
 
@@ -48,17 +49,17 @@
 
 - (void)setTitleString:(NSString *)titleString{
     if (titleString) {
-        _titleString = titleString;
         _titleLabel.hidden = NO;
     }else{
         _titleLabel.hidden = YES;
     }
+    _titleString = titleString;
     _titleLabel.text = titleString;
 }
 
-- (void)setImage:(UIImage *)image{
-    _image = image;
-    _imageView.image = image;
+- (void)setImg:(SomeImage *)image{
+    _img = image;
+    _imageView.image = _img.image;
 }
 
 

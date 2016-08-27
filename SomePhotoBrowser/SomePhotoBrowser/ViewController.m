@@ -9,13 +9,16 @@
 #import "ViewController.h"
 #import "TZImagePickerController.h"
 #import "ImageCollectionViewCell.h"
+#import "SomeImage.h"
+#import "SomePhotoBrowser.h"
 
 #define ITEM_WIDTH [UIScreen mainScreen].bounds.size.width/4-3
 #define CELL_ITENT  @"image_collection_cell"
 
-@interface ViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,TZImagePickerControllerDelegate>
+@interface ViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,TZImagePickerControllerDelegate,SomePhotoBrowserDelegate>
 @property (nonatomic, strong) UICollectionView  * collectionView;
 @property (nonatomic, strong) NSMutableArray    * imageArray;
+@property (nonatomic, strong) SomePhotoBrowser  * photoBrowser;
 
 @end
 
@@ -55,7 +58,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELL_ITENT forIndexPath:indexPath];
     if (indexPath.row < [self.imageArray count]) {
-        cell.image = [self.imageArray objectAtIndex:indexPath.row];
+        cell.img = [self.imageArray objectAtIndex:indexPath.row];
         cell.titleString = nil;
     }else{
         cell.titleString = @"添加图片";
@@ -75,19 +78,41 @@
         picker.allowTakePicture = YES;
         __weak typeof(self) weakself = self;
         picker.didFinishPickingPhotosHandle = ^(NSArray<UIImage *> *photos,NSArray *assets,BOOL isSelectOriginalPhoto){
-            NSLog(@" -- ");
-            [weakself.imageArray addObjectsFromArray:photos];
+            for (int i = 0; i < [photos count]; i++) {
+                UIImage * img = [photos objectAtIndex:i];
+                SomeImage * someImg = [SomeImage someImageWithImage:img detail:@"helo world"];
+                [weakself.imageArray addObject:someImg];
+            }
+            
             [weakself.collectionView reloadData];
         };
         [self presentViewController:picker animated:YES completion:nil];
     }else{
         //浏览图片
+        [self.view addSubview:self.photoBrowser];
+        self.photoBrowser.imgArray = self.imageArray;
         
+        [self.photoBrowser mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+            [self.photoBrowser showWithIndex:indexPath.row];
+        }];
     }
 }
 
 
-
+#pragma  mark  -
+#pragma  mark  --------- photo browser delegate ---------
+- (void)somePhotoBrowser:(SomePhotoBrowser *)browser tapImageAction:(SomeImage *)image{
+    [self.photoBrowser removeFromSuperview];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
 
 
 #pragma  mark  -
@@ -99,6 +124,13 @@
     return _imageArray;
 }
 
+- (SomePhotoBrowser *)photoBrowser{
+    if (!_photoBrowser) {
+        _photoBrowser = [SomePhotoBrowser new];
+        _photoBrowser.delegate = self;
+    }
+    return _photoBrowser;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

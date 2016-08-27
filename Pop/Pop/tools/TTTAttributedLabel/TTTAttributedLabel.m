@@ -364,7 +364,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     if (!self) {
         return nil;
     }
-
+    
     [self commonInit];
 
     return self;
@@ -422,6 +422,22 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     if (_longPressGestureRecognizer) {
         [self removeGestureRecognizer:_longPressGestureRecognizer];
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIMenuControllerWillShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIMenuControllerDidHideMenuNotification object:nil];
+}
+
+- (void)setShowSelectionMenu:(BOOL)showSelectionMenu{
+    _showSelectionMenu = showSelectionMenu;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillShow) name:UIMenuControllerWillShowMenuNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuDidHide) name:UIMenuControllerDidHideMenuNotification object:nil];
+}
+
+- (void)menuWillShow{
+    self.backgroundColor = [UIColor lightGrayColor];
+}
+
+- (void)menuDidHide{
+    self.backgroundColor = [UIColor clearColor];
 }
 
 #pragma mark -
@@ -662,6 +678,9 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 #pragma mark -
 
 - (BOOL)containslinkAtPoint:(CGPoint)point {
+    if (_showSelectionMenu) {
+        return YES;
+    }
     return [self linkAtPoint:point] != nil;
 }
 
@@ -1492,7 +1511,20 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 - (BOOL)canPerformAction:(SEL)action
               withSender:(__unused id)sender
 {
-    return (action == @selector(copy:));
+    //有好多系统方法，此处分别打印出来
+    NSLog(@"<< action: %@ >>",NSStringFromSelector(action));
+    //此处禁用用了系统的copy方法，看懂了之后这个判断就完全可以不写了
+    if (action == @selector(copy:)){
+        return NO;
+    }else if (action == @selector(share:) ||
+              action == @selector(collect:) ||
+              action == @selector(copyText:)){
+        //上面三个方法是自定义的，可根据需要写上自己需要调用的自定义方法或者系统方法
+        return YES;
+    }
+    //对于有些系统控件例如text field，它只会相应部分系统方法，如果要禁用某一个的话，只需判断那一个，return NO就行了，其他的直接return super允许使用的方法，如下:
+//    return [super canPerformAction:action withSender:sender];
+    return NO;
 }
 
 - (void)touchesBegan:(NSSet *)touches
@@ -1599,6 +1631,18 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 #pragma mark - UILongPressGestureRecognizer
 
 - (void)longPressGestureDidFire:(UILongPressGestureRecognizer *)sender {
+    if (_showSelectionMenu) {
+        [self becomeFirstResponder];
+        UIMenuItem *copyLink = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyText:)];
+        UIMenuItem *share = [[UIMenuItem alloc] initWithTitle:@"分享" action:@selector(share:)];
+        UIMenuItem *collect = [[UIMenuItem alloc] initWithTitle:@"收藏" action:@selector(collect:)];
+        UIMenuItem *translete = [[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(collect:)];
+        [[UIMenuController sharedMenuController] setMenuItems:@[copyLink,share,collect,translete]];
+        [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
+        return;
+    }
+    
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             CGPoint touchPoint = [sender locationInView:self];
@@ -1653,6 +1697,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
                         break;
                 }
                 
+                
                 // Fallback to `attributedLabel:didLongPressLinkWithTextCheckingResult:atPoint:` if no other delegate method matched.
                 if ([self.delegate respondsToSelector:@selector(attributedLabel:didLongPressLinkWithTextCheckingResult:atPoint:)]) {
                     [self.delegate attributedLabel:self didLongPressLinkWithTextCheckingResult:result atPoint:touchPoint];
@@ -1669,6 +1714,18 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 
 - (void)copy:(__unused id)sender {
     [[UIPasteboard generalPasteboard] setString:self.text];
+}
+
+- (void)copyText:(__unused id)sender {
+    [[UIPasteboard generalPasteboard] setString:self.text];
+}
+
+- (void)share:(__unused id)sender {
+    NSLog(@" %s ",__func__);
+}
+
+- (void)collect:(__unused id)sender {
+    NSLog(@" %s ",__func__);
 }
 
 #pragma mark - NSCoding

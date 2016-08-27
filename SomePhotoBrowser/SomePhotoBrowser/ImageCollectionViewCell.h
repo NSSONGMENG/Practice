@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SomeImage;
 
 @interface ImageCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImage   * image;
+@property (nonatomic, strong) SomeImage   * img;
 @property (nonatomic, copy) NSString    * titleString;
 
 

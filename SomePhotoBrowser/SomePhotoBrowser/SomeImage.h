@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SomeImage : UIImage
+@interface SomeImage : NSObject
 
 #pragma mark - property
+@property (nonatomic, strong)UIImage    * image;
 @property (nonatomic, strong)NSURL      * imageUrl;
 @property (nonatomic, copy)NSString     * detail;
 

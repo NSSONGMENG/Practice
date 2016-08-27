@@ -8,20 +8,25 @@
 
 #import <UIKit/UIKit.h>
 @class SomePhotoBrowser;
+@class SomeImage;
 
 @protocol SomePhotoBrowserDelegate <NSObject>
 
-
+- (void)somePhotoBrowser:(SomePhotoBrowser *)browser tapImageAction:(SomeImage *)image;
 
 @end
 
 
 @interface SomePhotoBrowser : UIView
 
-#pragma mark - data property
-- (instancetype)initWithPhotos:(NSArray *)photos currentIndex:(NSInteger)index;
 
+@property (readonly, nonatomic, assign) BOOL      labelShow;
+@property (nonatomic, strong) NSArray   * imgArray;
+@property (nonatomic, assign) id <SomePhotoBrowserDelegate>delegate;
 
 #pragma mark - api
+
+- (instancetype)initWithPhotos:(NSArray *)photos currentIndex:(NSInteger)index;
+- (void)showWithIndex:(NSInteger)currentIndex;
 
 @end

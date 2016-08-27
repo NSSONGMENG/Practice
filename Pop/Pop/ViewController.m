@@ -8,8 +8,10 @@
 
 #import "ViewController.h"
 #import "UserModel.h"
+#import "TTTAttributedLabel.h"
+#import "SomeView.h"
 
-@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate,TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSArray   * imgArr;
 @property (nonatomic, strong) UITableView   * tableView;
 @end
@@ -18,6 +20,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    TTTAttributedLabel  * label = [TTTAttributedLabel new];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.minimumLineHeight = 15;
+//    label.numberOfLines = 0;
+//    label.delegate = self;
+//    label.showSelectionMenu = YES;
+//    label.enabledTextCheckingTypes = NSTextCheckingTypePhoneNumber | NSTextCheckingTypeLink;
+//    [label setText:@"www.erlinyou.com 15300155711 面包没有有面条，牛奶没有有面汤。"];
+//    [self.view addSubview:label];
+//    
+//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self.view);
+//        make.width.lessThanOrEqualTo(@200);
+//    }];
+    
     self.view.backgroundColor = [UIColor greenColor];
     _imgArr = @[[UIImage imageNamed:@"earth.jpg"],
                 [UIImage imageNamed:@"water.jpg"],
@@ -34,6 +52,19 @@
         make.top.equalTo(self.view).offset(20);
     }];
 }
+
+#pragma  mark  -
+#pragma  mark  --------- label delegate ---------
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url{
+    NSLog(@"url : %@",url);
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label
+didSelectLinkWithPhoneNumber:(NSString *)phoneNumber{
+    NSLog(@"phone number : %@",phoneNumber);
+}
+
 #pragma  mark  -
 #pragma  mark  --------- table view ---------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -67,8 +98,12 @@
 //    overlay.detailViewMode = MTDetailViewModeHistory;
 //    [overlay postImmediateFinishMessage:message duration:2.0 animated:YES];
 //    overlay.progress = 0.5;
-    UserModel *user = [UserModel new];
+    UserModel *user = [UserModel new];    
+    SomeView * v = [[SomeView alloc] initWithFrame:CGRectMake(20, 20, 100, 40)];
+
     NSLog(@"%@",user);
+    v.title = @"view";
+    NSLog(@"%@",v);
 
 }
 
