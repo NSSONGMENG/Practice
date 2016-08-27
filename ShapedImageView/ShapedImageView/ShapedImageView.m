@@ -33,6 +33,7 @@
 }
 
 #pragma mark - create UI
+//right参数用来选定图片，制定尖角的朝向
 - (void)createSubviewToRight:(BOOL)right{
     _maskLayer = nil;
     _contentLayer = nil;
