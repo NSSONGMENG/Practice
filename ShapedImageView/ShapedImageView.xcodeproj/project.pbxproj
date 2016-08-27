@@ -28,6 +28,7 @@
 		5F256FF31D71DFE600886FFD /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F256FE91D71DFE600886FFD /* ViewController+MASAdditions.m */; };
 		5F256FFE1D71EC0E00886FFD /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F256FFC1D71EC0D00886FFD /* right.png */; };
 		5F256FFF1D71EC0E00886FFD /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F256FFD1D71EC0E00886FFD /* left.png */; };
+		5F25704C1D71F23000886FFD /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F25704B1D71F23000886FFD /* UIImage+Color.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,8 @@
 		5F256FE91D71DFE600886FFD /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		5F256FFC1D71EC0D00886FFD /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		5F256FFD1D71EC0E00886FFD /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
+		5F25704A1D71F23000886FFD /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		5F25704B1D71F23000886FFD /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				5F256FB81D71DED500886FFD /* ViewController.m */,
 				5F256FCE1D71DF9900886FFD /* ShapedImageView.h */,
 				5F256FCD1D71DF9900886FFD /* ShapedImageView.m */,
+				5F25704A1D71F23000886FFD /* UIImage+Color.h */,
+				5F25704B1D71F23000886FFD /* UIImage+Color.m */,
 				5F256FBA1D71DED500886FFD /* Main.storyboard */,
 				5F256FBD1D71DED500886FFD /* Assets.xcassets */,
 				5F256FBF1D71DED500886FFD /* LaunchScreen.storyboard */,
@@ -258,6 +263,7 @@
 				5F256FF21D71DFE600886FFD /* View+MASAdditions.m in Sources */,
 				5F256FB31D71DED500886FFD /* main.m in Sources */,
 				5F256FCF1D71DF9900886FFD /* ShapedImageView.m in Sources */,
+				5F25704C1D71F23000886FFD /* UIImage+Color.m in Sources */,
 				5F256FEA1D71DFE600886FFD /* MASCompositeConstraint.m in Sources */,
 				5F256FF11D71DFE600886FFD /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 			);
@@ -408,6 +414,7 @@
 				5F256FC71D71DED500886FFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

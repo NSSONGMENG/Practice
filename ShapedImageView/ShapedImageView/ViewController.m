@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ShapedImageView.h"
+#import "UIImage+Color.h"
 #import "Masonry.h"
 
 @interface ViewController ()
@@ -51,6 +52,27 @@
     imgView0.image = [UIImage imageNamed:@"right"];
     imgview1.image = [UIImage imageNamed:@"left"];
     
+    
+    ShapedImageView * bubbleView = [[ShapedImageView alloc] initWithDirectionRight:NO];
+    bubbleView.image = [UIImage imageWithColor:[UIColor lightGrayColor]];
+    [self.view addSubview:bubbleView];
+    
+    UILabel * messageLabel = [UILabel new];
+    messageLabel.font = [UIFont systemFontOfSize:15];
+    messageLabel.backgroundColor = [UIColor clearColor];
+    messageLabel.text = @"仿微信气泡实现";
+    //设置为透明颜色
+    [self.view addSubview:messageLabel];
+    [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(imgview1).offset(10);
+        make.top.equalTo(imgview1.mas_bottom).offset(20);
+    }];
+    [bubbleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(messageLabel).offset(-5);
+        make.left.equalTo(messageLabel).offset(-10);
+        make.right.with.bottom.equalTo(messageLabel).offset(5);
+        //with可写可不写
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
