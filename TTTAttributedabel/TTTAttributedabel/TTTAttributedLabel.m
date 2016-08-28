@@ -313,7 +313,6 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 @property (readwrite, nonatomic, strong) NSArray *linkModels;
 @property (readwrite, nonatomic, strong) TTTAttributedLabelLink *activeLink;
 @property (readwrite, nonatomic, strong) NSArray *accessibilityElements;
-@property (readwrite, nonatomic, strong) NSMutableArray    * selectionItems;   //保存复制等操作的menu item
 
 - (void) longPressGestureDidFire:(UILongPressGestureRecognizer *)sender;
 @end
@@ -689,7 +688,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 #pragma mark -
 
 - (BOOL)containslinkAtPoint:(CGPoint)point {
-    if (_selectionArray && [_selectionArray count] > 0) {
+    if (_showMenuController) {
         return YES;
     }
     return [self linkAtPoint:point] != nil;
@@ -1519,10 +1518,10 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     return YES;
 }
 
-- (BOOL)canPerformAction:(SEL)action
-              withSender:(__unused id)sender
-{
-    if (action == @selector(menuAction:)){
+- (BOOL)canPerformAction:(SEL)action withSender:(__unused id)sender{
+    if (action == @selector(copyText:) ||
+        action == @selector(collectAction:) ||
+        action == @selector(deleteAction:)){
         return YES;
     }
     return NO;
@@ -1641,25 +1640,19 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 #pragma mark - UILongPressGestureRecognizer
 
 - (void)longPressGestureDidFire:(UILongPressGestureRecognizer *)sender {
-    if (_selectionArray && [_selectionArray count] > 0) {
+    if (_showMenuController) {
         if (sender.state == UIGestureRecognizerStateBegan) {
-            NSInteger   count = [self.selectionArray count];
-            if (count > 0) {
-                [self menuWillShow];
-                [self becomeFirstResponder];
-                NSMutableArray  * items = [NSMutableArray array];
-                for (int i = 0; i < count; i++) {
-                    NSString    * str = [self.selectionArray objectAtIndex:i];
-                    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:str action:@selector(menuAction:)];
-                    [items addObject:item];
-                }
-                _selectionItems = items;
-                [[UIMenuController sharedMenuController] setMenuItems:items];
-                [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
-                [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
+            [self menuWillShow];
+            [self becomeFirstResponder];
+            UIMenuItem  * copyItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyText:)];
+            UIMenuItem  * collectItem = [[UIMenuItem alloc] initWithTitle:@"收藏" action:@selector(collectAction:)];
+            UIMenuItem  * deleteItem = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(deleteAction:)];
+        
+            [[UIMenuController sharedMenuController] setMenuItems:@[copyItem,collectItem,deleteItem]];
+            [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
+            [[UIMenuController sharedMenuController] setMenuVisible:YES animated: YES];
 
-                return;
-            }
+            return;
         }
     }
     
@@ -1735,18 +1728,22 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     [[UIPasteboard generalPasteboard] setString:self.text];
 }
 
-- (void)menuAction:(__unused id)sender {
-    UIMenuController * menu = sender;
-    UIMenuItem *item = [menu.menuItems objectAtIndex:menu.arrowDirection];
-    if ([item.title isEqualToString:@"复制"]) {
-        [[UIPasteboard generalPasteboard] setString:self.text];
-        if (self.callBackSelection) {
-            self.callBackSelection(@"内容已复制到剪切板",menu.arrowDirection);
-        }
-    }else{
-        if (self.callBackSelection) {
-            self.callBackSelection(item.title,menu.arrowDirection);
-        }
+- (void)copyText:(__unused id)sender {
+    [[UIPasteboard generalPasteboard] setString:self.text];
+    if (self.callBackSelection) {
+        self.callBackSelection(@"内容已复制到剪切板");
+    }
+}
+
+- (void)collectAction:(id)sender{
+    if (self.callBackSelection) {
+        self.callBackSelection(@"复制");
+    }
+}
+
+- (void)deleteAction:(id)sender{
+    if (self.callBackSelection) {
+        self.callBackSelection(@"删除");
     }
 }
 

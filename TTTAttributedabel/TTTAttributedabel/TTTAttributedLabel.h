@@ -128,13 +128,13 @@ IB_DESIGNABLE
 ///--------------------------------------------
 
 
-/**
- UIMenuController要展示的选项，如复制、收藏等
- */
-@property (nonatomic, strong) NSArray   * selectionArray;
+/// 长按手势下UIMenuController要展示的选项，如复制、收藏等
+/// 复制方法内部已经实现，其他方法可自行添加
+@property (nonatomic, assign) BOOL   showMenuController;
 
-//回调方法名和索引
-@property (nonatomic, copy) void(^callBackSelection)(NSString * title,NSInteger selectionIndex);
+/// 当点击UIMenuController上相应的选项，可通过此回调返回操作对应的title，方便在外部进行操作
+///（不需要去实现复制相关操作，label内部已经实现）
+@property (nonatomic, copy) void(^callBackSelection)(NSString * title);
 
 /**
  @deprecated Use `enabledTextCheckingTypes` property instead.
@@ -547,14 +547,13 @@ didSelectLinkWithTextCheckingResult:(NSTextCheckingResult *)result;
  *  This may be useful on iPad to present a popover from a specific origin point.
  */
 
-/**
- *  复制选项弹出隐藏回调
- */
-- (void)attributedLabel:(TTTAttributedLabel *)label
-                          willShowMenuWithText:(id)text;
+/// UIMenuController将要显示
+/// 可在此方法中修改label的背景色，曾尝试过通过设置attributedText的背景色达到显示选项是修改文本背景色的目的，但是不起作用
+- (void)attributedLabel:(TTTAttributedLabel *)label willShowMenuWithText:(id)text;
 
-- (void)attributedLabel:(TTTAttributedLabel *)label
-                          willHideMenuWithText:(id)text;
+/// UIMenuController将要隐藏
+/// 可在此方法中将label背景色还原
+- (void)attributedLabel:(TTTAttributedLabel *)label willHideMenuWithText:(id)text;
 
 /**
  Tells the delegate that the user long-pressed a link to a URL.
@@ -642,9 +641,9 @@ didLongPressLinkWithTransitInformation:(NSDictionary *)components
 didLongPressLinkWithTextCheckingResult:(NSTextCheckingResult *)result
                 atPoint:(CGPoint)point;
 
-//双击回调
-- (void)attributedLabel:(TTTAttributedLabel *)label
- didDoubleClickWithText:(NSAttributedString *)string;
+/// 双击文本调用此方法
+/// 如果需要添加双击功能，实现此方法就无需再去额外添加gesture了
+- (void)attributedLabel:(TTTAttributedLabel *)label didDoubleClickWithText:(NSAttributedString *)string;
 
 @end
 

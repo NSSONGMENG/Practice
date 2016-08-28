@@ -30,13 +30,14 @@
     messageLabel.textInsets = UIEdgeInsetsMake(5, 10, 5, 10);
     messageLabel.delegate = self;
     //这里只匹配链接和电话号码
+    //当然如果不对enabledTextCheckingTypes属性赋值的话，它就和普通的UILabel区别不大了
     messageLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber;
-    messageLabel.selectionArray = @[@"复制",@"删除"];
-    messageLabel.callBackSelection = ^(NSString * title,NSInteger selectionIndex){
-        NSLog(@"title : %@  index : %ld",title,selectionIndex);
+    messageLabel.showMenuController = YES;
+    messageLabel.callBackSelection = ^(NSString * title){
+        NSLog(@"title : %@ ",title);
         //复制在label内部，其他功能自定义实现
     };
-    NSString * message = @"百度www.baidu.com 邮箱:12345678@qq.com 电话:15237012513(高中是、时用的号码，现在不用了,别想着通过电话联系我啊)";
+    NSString * message = @"百度www.baidu.com 邮箱:12345678@qq.com 电话:15237012513(高中时用的号码，现在不用了)";
     [self.view addSubview:messageLabel];
     
     [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,11 +77,13 @@
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label willShowMenuWithText:(id)text{
-    label.backgroundColor = [UIColor lightGrayColor];
+    // 因为内部已经设置了颜色，这里可以不再设置，如果需要可以在内部或者按照下面这种方式进行修改
+//    label.backgroundColor = [UIColor lightGrayColor];
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label willHideMenuWithText:(id)text{
-    label.backgroundColor = [UIColor whiteColor];
+    // 内部还原为透明色，这里可以不再设置，如果需要可以在内部或者按照下面这种方式进行修改
+//    label.backgroundColor = [UIColor whiteColor];
 }
 
 
