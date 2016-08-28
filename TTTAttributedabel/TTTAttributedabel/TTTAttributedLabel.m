@@ -431,7 +431,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     if ([self.delegate respondsToSelector:@selector(attributedLabel:willShowMenuWithText:)]) {
         [self.delegate attributedLabel:self willShowMenuWithText:self.text];
     }else{
-        self.backgroundColor = IOSRGB(200, 2235, 255);
+        self.backgroundColor = [UIColor colorWithRed:200 green:235 blue:155 alpha:1];
     }
 }
 
@@ -1650,7 +1650,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
                 NSMutableArray  * items = [NSMutableArray array];
                 for (int i = 0; i < count; i++) {
                     NSString    * str = [self.selectionArray objectAtIndex:i];
-                    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:LocalizedString(str) action:@selector(menuAction:)];
+                    UIMenuItem *item = [[UIMenuItem alloc] initWithTitle:str action:@selector(menuAction:)];
                     [items addObject:item];
                 }
                 _selectionItems = items;
@@ -1738,7 +1738,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
 - (void)menuAction:(__unused id)sender {
     UIMenuController * menu = sender;
     UIMenuItem *item = [menu.menuItems objectAtIndex:menu.arrowDirection];
-    if ([item.title isEqualToString:LocalizedString(@"sCopy")]) {
+    if ([item.title isEqualToString:@"复制"]) {
         [[UIPasteboard generalPasteboard] setString:self.text];
         if (self.callBackSelection) {
             self.callBackSelection(@"内容已复制到剪切板",menu.arrowDirection);

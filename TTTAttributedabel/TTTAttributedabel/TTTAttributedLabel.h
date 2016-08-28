@@ -133,6 +133,7 @@ IB_DESIGNABLE
  */
 @property (nonatomic, strong) NSArray   * selectionArray;
 
+//回调方法名和索引
 @property (nonatomic, copy) void(^callBackSelection)(NSString * title,NSInteger selectionIndex);
 
 /**
