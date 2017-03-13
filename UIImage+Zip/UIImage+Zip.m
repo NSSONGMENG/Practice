@@ -2,11 +2,10 @@
 //  UIImage+Zip.m
 //  nav
 //
-//  Created by SoMe on 15/11/7.
+//  Created by songmeng on 15/11/7.
 //  Copyright © 2015年 erlinyou.com. All rights reserved.
 //
 
-//  不经解压直接读取压缩包中的图片
 
 #import "UIImage+Zip.h"
 #import <zipzap/ZipZap.h>
@@ -19,63 +18,128 @@ NSMutableDictionary *zipDict;
     zipDict = [[NSMutableDictionary alloc] init];
 }
 
-+(UIImage *)imageNamed:(NSString *)name inZip:(NSString *)zip{
++(BOOL)existImageWithFileInZip:(NSString *)zipPath{
+    if (!ISNOTNULL(zipPath) || [zipPath isEqualToString:@""] || [zipPath isEqualToString:@"(null)"]) {
+        return NO;
+    }
+    
+    //重新拼接路径
+    NSString *documentStr = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) lastObject];
+    NSArray * arr = [zipPath componentsSeparatedByString:@"/"];
+    NSMutableArray  * pathArr = [NSMutableArray array];
+    NSInteger   docIndex = [arr indexOfObject:@"Documents"];
+    for (NSInteger i = docIndex+1; i < [arr count]-1; i++) {
+        [pathArr addObject:arr[i]];
+    }
+    
+    NSMutableString    * path = [documentStr mutableCopy];
+    for (int i = 0; i < [pathArr count]; i++) {
+        [path appendFormat:@"/%@",pathArr[i]];
+    }
+    [path appendString:@".zip"];
+    NSString    * fileName = [arr lastObject];
+    //
     NSError  * error;
+    if (!zipDict[path]) {
+        ZZArchive *archive = [ZZArchive archiveWithURL:[NSURL fileURLWithPath:path] error:&error];
+        if (error) {
+            return NO;
+        }
+        [zipDict setObject:archive forKey:path];
+    }
+    
+    ZZArchive *archive = zipDict[path];
+    for (ZZArchiveEntry * ectry in archive.entries) {
+        if ([ectry.fileName isEqualToString:fileName]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
++(UIImage *)imageNamed:(NSString *)name inZip:(NSString *)zip{
+    __block NSError  * error;
+    //    NSLog(@"%@ -- name %@",zip,name);
     if (!zipDict[zip]) {
         ZZArchive *archive = [ZZArchive archiveWithURL:[NSURL fileURLWithPath:zip] error:&error];
         if (error) {
-            NSUInteger location = [zip rangeOfString:@".zip"].location;
-            NSString *folderPath = [zip substringToIndex:location];
-            NSString *filePath = [NSString stringWithFormat:@"%@/%@", folderPath, name];
-            return [UIImage imageWithContentsOfFile:filePath ];
+            return nil;
         }
         [zipDict setObject:archive forKey:zip];
     }
-    
     ZZArchive *archive = zipDict[zip];
-    for (ZZArchiveEntry * ectry in archive.entries) {
-        if ([ectry.fileName isEqualToString:name]) {
-            NSData * data = [ectry newDataWithError:&error];
+    __block UIImage * img = nil;
+    [archive.entries enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(ZZArchiveEntry * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString    * fileName = [[obj.fileName componentsSeparatedByString:@"/"] lastObject];
+        if ([fileName isEqualToString:name]) {
+            NSData * data = [obj newDataWithError:&error];
             if (error) {
-//                NSLog(@"--------data error:%@--------\n %s",error,__FUNCTION__);
+                *stop = YES;
             }else{
-                return [UIImage imageWithData:data];
+                img = [UIImage imageWithData:data];
+                *stop = YES;
             }
         }
-    }
-    
-    return nil;
+    }];
+    return img;
 }
 
 +(UIImage *)imageWithFileInZip:(NSString *)fileInZip
 {
-    if (!fileInZip || [fileInZip isEqualToString:@""]) {
+    if (!fileInZip || [fileInZip isKindOfClass:[NSNull class]] || [fileInZip isEqualToString:@""] || [fileInZip isEqualToString:@"(null)"]) {
         return nil;
     }
     
-    NSRange range = [fileInZip rangeOfString:@"/T/"];
-    if (range.length > 0) {
-        NSString * prefix = [fileInZip substringToIndex:range.location];
-        NSString * zipPath = [prefix stringByAppendingString:@"/T.zip"];
-        NSString * imageName = [fileInZip substringFromIndex:range.location+range.length];
-        UIImage *image = [UIImage imageNamed:imageName inZip:zipPath];
-        if (image)
-            return image;
+    //var/mobile/Containers/Data/Application/8E94BBA2-056C-4953-9922-74EC45F3A5A3/Documents/此路径每次启动都会变化,所以必须重新拼接。
+    NSString *documentStr = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) lastObject];
+    NSArray * arr = [fileInZip componentsSeparatedByString:@"/"];
+    NSMutableArray  * pathArr = [NSMutableArray array];
+    NSInteger   docIndex = [arr indexOfObject:@"Documents"];
+    for (NSInteger i = docIndex+1; i < [arr count]-1; i++) {
+        [pathArr addObject:arr[i]];
     }
+    
+    NSMutableString    * zipPath = [documentStr mutableCopy];
+    for (int i = 0; i < [pathArr count]; i++) {
+        [zipPath appendFormat:@"/%@",pathArr[i]];
+    }
+    [zipPath appendString:@".zip"];
+    UIImage *image = [UIImage imageNamed:[arr lastObject] inZip:zipPath];
+    if (image){
+        return image;
+    }
+    
     return [self imageWithContentsOfFile:fileInZip];
+}
+
++(UIImage *)rectImageWithFileInZip:(NSString *)fileInZip{
+    if (!ISNOTNULL(fileInZip) || [fileInZip isEqualToString:@""] || [fileInZip isEqualToString:@"(null)"]) {
+        return nil;
+    }
+    
+    UIImage * image = [UIImage imageWithFileInZip:fileInZip];
+    if (image.size.width == image.size.height) {
+        return image;
+    }
+    
+    UIImage * rectImage = [UIImage rectImageWithImage:image];
+    return rectImage;
 }
 
 +(UIImage *)imageWithNameOrFilePath:(NSString *)nameOrFilePath
 {
+    if (!ISNOTNULL(nameOrFilePath) || [nameOrFilePath isEqualToString:@""] || [nameOrFilePath isEqualToString:@"(null)"]) {
+        return nil;
+    }
     if ([nameOrFilePath rangeOfString:@"/var/mobile"].location==0) {
         return [UIImage imageWithFileInZip:nameOrFilePath];
     }
     else {
-        return ImageByWhiteBlackMode(nameOrFilePath);
+        return ImageByDayNightMode(nameOrFilePath);
     }
 }
 
-#pragma mark  -------- 压缩 --------
+#pragma mark  - 尺寸压缩
 //压缩成宽高均为width的矩形
 +(UIImage *)imageWithFileInZip:(NSString *)filePath aimWidth:(NSInteger)width{
     UIImage * image = [self imageWithFileInZip:filePath];
@@ -111,6 +175,13 @@ NSMutableDictionary *zipDict;
 
 //剪切成方形image
 +(UIImage *)rectImageWithImage:(UIImage *)image{
+    if (!image) {
+        return nil;
+    }
+    
+    if (image.size.width == image.size.height) {
+        return image;
+    }
     CGImageRef  image_cg = [image CGImage];
     CGSize      imageSize = CGSizeMake(CGImageGetWidth(image_cg), CGImageGetHeight(image_cg));
     
@@ -131,15 +202,23 @@ NSMutableDictionary *zipDict;
     UIImage * thumbImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     return thumbImage;
-
+    
 }
 
-#pragma mark  -------- 质量压缩 --------
+#pragma mark  - 质量压缩
 /**
- *  质量不变，压缩到指定大小范围
- *  aimLength：目标大小      accurancyOfLength：压缩控制误差范围(+ / -)        maxCircleNum:最大循环次数
+ 图片尺寸不变，压缩到指定大小
+ 
+ @param image 要压缩的图片
+ @param length 目标占用寸尺空间大小
+ @param accuracy 压缩控制误差范围（＋／－）
+ @param maxCircleNum 最大循环裁剪次数
+ @return 目标image obj
  */
 + (NSData *)compressImageWithImage:(UIImage *)image aimLength:(NSInteger)length accurancyOfLength:(NSInteger)accuracy maxCircleNum:(int)maxCircleNum{
+    if (!image) {
+        return nil;
+    }
     NSData * imageData = UIImageJPEGRepresentation(image, 1);
     CGFloat scale = image.size.height/image.size.width;
     if (imageData.length <= length + accuracy) {
@@ -195,17 +274,16 @@ NSMutableDictionary *zipDict;
  *  accuracyOfLength: 压缩控制误差范围(+ / -)
  */
 + (NSData *)compressImageWithImage:(UIImage *)image aimWidth:(CGFloat)width aimLength:(NSInteger)length accuracyOfLength:(NSInteger)accuracy{
+    if (!image) {
+        return nil;
+    }
     CGFloat imgWidth = image.size.width;
     CGFloat imgHeight = image.size.height;
     CGSize  aimSize;
-    if (width >= (imgWidth > imgHeight ? imgWidth : imgHeight)) {
+    if (width >= imgWidth) {
         aimSize = image.size;
     }else{
-        if (imgHeight > imgWidth) {
-            aimSize = CGSizeMake(width*imgWidth/imgHeight, width);
-        }else{
-            aimSize = CGSizeMake(width, width*imgHeight/imgWidth);
-        }
+        aimSize = CGSizeMake(width, width*imgHeight/imgWidth);
     }
     UIImage * newImage = [UIImage imageWithImage:image scaledToSize:aimSize];
     
@@ -226,26 +304,28 @@ NSMutableDictionary *zipDict;
         int flag = 0;
         
         while (1) {
-            CGFloat midQuality = (maxQuality + minQuality)/2;
-            
-            if (flag >= 6) {
-               NSData * data = UIImageJPEGRepresentation(newImage, minQuality);
-                return data;
-            }
-            flag ++;
-            
-            NSData * imageData = UIImageJPEGRepresentation(newImage, midQuality);
-            NSInteger len = imageData.length;
-            
-            if (len > length+accuracy) {
-                maxQuality = midQuality;
-                continue;
-            }else if (len < length-accuracy){
-                minQuality = midQuality;
-                continue;
-            }else{
-                return imageData;
-                break;
+            @autoreleasepool {
+                CGFloat midQuality = (maxQuality + minQuality)/2;
+                
+                if (flag >= 6) {
+                    NSData * data = UIImageJPEGRepresentation(newImage, minQuality);
+                    return data;
+                }
+                flag ++;
+                
+                NSData * imageData = UIImageJPEGRepresentation(newImage, midQuality);
+                NSInteger len = imageData.length;
+                
+                if (len > length+accuracy) {
+                    maxQuality = midQuality;
+                    continue;
+                }else if (len < length-accuracy){
+                    minQuality = midQuality;
+                    continue;
+                }else{
+                    return imageData;
+                    break;
+                }
             }
         }
     }
