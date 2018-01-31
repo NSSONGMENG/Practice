@@ -1,4 +1,6 @@
 SomePhotoBrowser.xcodeproj/project.xcworkspace/
+
 *.xcworkspace
 Podfile.lock
 !.gitignore
+.DS_Store
