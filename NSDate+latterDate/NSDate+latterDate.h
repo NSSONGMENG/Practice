@@ -10,6 +10,32 @@
 
 @interface NSDate (latterDate)
 
+/**
+ 是否属于同一天判断
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一天为真，否则为假
+ */
++ (BOOL)isInSameDay:(int64_t)time1 time2:(int64_t)time2;
+
+/**
+ 是否属于同一周
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一周为真，否则为假
+ */
++ (BOOL)isInSameWeek:(int64_t)time1 time2:(int64_t)time2;
+
+/**
+ 是否属于同一月
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一月为真，否则为假
+ */
++ (BOOL)isInSameMonth:(int64_t)time1 time2:(int64_t)time2;
 
 /**
  * @method

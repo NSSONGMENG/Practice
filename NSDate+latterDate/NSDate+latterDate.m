@@ -8,7 +8,91 @@
 
 #import "NSDate+latterDate.h"
 
+#define kSeconds_Per_Day    86400
+#define kSeconds_Per_Week   604800
+
 @implementation NSDate (latterDate)
+
+
+/**
+ 是否属于同一天判断
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一天为真，否则为假
+ */
++ (BOOL)isInSameDay:(int64_t)time1 time2:(int64_t)time2
+{
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:time1];
+    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:time2];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unit = NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear;
+    
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:date1];
+    NSDateComponents *selfCmps = [calendar components:unit fromDate:date2];
+    
+    return nowCmps.day == selfCmps.day && nowCmps.month == selfCmps.month && nowCmps.year == selfCmps.year;
+}
+
+
+/**
+ 是否属于同一周
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一周为真，否则为假
+ */
++ (BOOL)isInSameWeek:(int64_t)time1 time2:(int64_t)time2
+{
+    int64_t t1 = MAX(time1, time2);
+    int64_t t2 = MIN(time1, time2);
+    
+    time1 = t1;
+    time2 = t2;
+    
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:time1];
+    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:time2];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    int unit = NSCalendarUnitWeekOfYear | NSCalendarUnitYear | NSCalendarUnitWeekday;
+    
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:date1];
+    NSDateComponents *selfCmps = [calendar components:unit fromDate:date2];
+    
+    if (llabs(time1-time2) < kSeconds_Per_Week) {
+        if (nowCmps.weekOfYear == selfCmps.weekOfYear) {
+            return YES;
+        }
+        if (llabs(nowCmps.year - selfCmps.year) == 1 && nowCmps.weekday > selfCmps.weekday) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+/**
+ 是否属于同一月
+ 
+ @param time1 time1
+ @param time2 time2
+ @return 同一月为真，否则为假
+ */
++ (BOOL)isInSameMonth:(int64_t)time1 time2:(int64_t)time2
+{
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:time1];
+    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:time2];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    int unit = NSCalendarUnitMonth | NSCalendarUnitYear;
+    
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:date1];
+    NSDateComponents *selfCmps = [calendar components:unit fromDate:date2];
+    
+    return (nowCmps.year == selfCmps.year)&&(nowCmps.month == selfCmps.month);
+}
+
 
 
 /**
